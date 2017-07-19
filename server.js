@@ -12,6 +12,8 @@ var PORT = process.env.PORT || 3000;
 // Connecting to my MongoDB Database
 mongoose.connect('mongodb://localhost/my_database');
 
+// HEROKU DEPLOYMENT: mongodb://heroku_r139bwdx:bj9kalikgpg164vcpmqnqenbsf@ds055495.mlab.com:55495/heroku_r139bwdx
+
 var db = mongoose.connection;
 
 // Show any mongoose errors
@@ -23,9 +25,6 @@ db.on("error", function(error) {
 db.once("open", function() {
     console.log("Mongoose connection successful.");
 });
-
-
-// HEROKU DEPLOYMENT: mongodb://heroku_r139bwdx:bj9kalikgpg164vcpmqnqenbsf@ds055495.mlab.com:55495/heroku_r139bwdx
 
 // express npm package
 var app = express();
@@ -46,12 +45,14 @@ app.use(express.static('app/public'));
 var router = require('./controllers/controller.js');
 app.use('/', router);
 
-
 // cheerio npm package for backend jQuery
 const $ = cheerio.load('<h2 class="title">Hello world</h2>');
 
+// storing the url in a variable for easy readability
+var url = "https://www.newhomesource.com/communityresults/market-80";
+
 // request npm package
-request('http://www.google.com', function (error, response, body) {
+request(url, function (error, response, body) {
     console.log('error:', error); // Print the error if one occurred
     console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
     console.log('body:', body); // Print the HTML for the Google homepage.
