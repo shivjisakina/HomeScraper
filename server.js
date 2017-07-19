@@ -14,7 +14,7 @@ var Homes = require("./models/Homes.js");
 var PORT = process.env.PORT || 3000;
 
 // Connecting to my MongoDB Database
-mongoose.connect('mongodb://localhost/homeScraper', { useMongoClient: true });
+mongoose.connect('mongodb://heroku_r139bwdx:bj9kalikgpg164vcpmqnqenbsf@ds055495.mlab.com:55495/heroku_r139bwdx', { useMongoClient: true });
 
 // HEROKU DEPLOYMENT: mongodb://heroku_r139bwdx:bj9kalikgpg164vcpmqnqenbsf@ds055495.mlab.com:55495/heroku_r139bwdx
 
@@ -48,10 +48,6 @@ app.use(express.static('app/public'));
 // requiring my  controller js file
 var router = require('./controllers/controller.js');
 app.use('/', router);
-
-// cheerio npm package for backend jQuery
-const $ = cheerio.load('<h2 class="title">Hello world</h2>');
-
 
 // Listening to the port
 app.listen(PORT, function () {
