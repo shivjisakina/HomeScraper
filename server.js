@@ -6,11 +6,15 @@ const request = require('request');
 const cheerio = require('cheerio');
 const mongoose = require('mongoose');
 
+// Requiring models
+var Note = require("./models/Note.js");
+var Homes = require("./models/Homes.js");
+
 // Making my port 3000 or process.env.PORT for heroku deployment
 var PORT = process.env.PORT || 3000;
 
 // Connecting to my MongoDB Database
-mongoose.connect('mongodb://localhost/my_database');
+mongoose.connect('mongodb://localhost/homeScraper', { useMongoClient: true });
 
 // HEROKU DEPLOYMENT: mongodb://heroku_r139bwdx:bj9kalikgpg164vcpmqnqenbsf@ds055495.mlab.com:55495/heroku_r139bwdx
 
@@ -55,7 +59,7 @@ var url = "https://www.newhomesource.com/communityresults/market-80";
 request(url, function (error, response, body) {
     console.log('error:', error); // Print the error if one occurred
     console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-    console.log('body:', body); // Print the HTML for the Google homepage.
+    //console.log('body:', body); // Print the HTML of the homepage.
 });
 
 
