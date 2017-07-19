@@ -4,14 +4,26 @@ const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const request = require('request');
 const cheerio = require('cheerio');
+const mongoose = require('mongoose');
 
 // Making my port 3000 or process.env.PORT for heroku deployment
 var PORT = process.env.PORT || 3000;
 
-const mongoose = require('mongoose');
-
 // Connecting to my MongoDB Database
 mongoose.connect('mongodb://localhost/my_database');
+
+var db = mongoose.connection;
+
+// Show any mongoose errors
+db.on("error", function(error) {
+    console.log("Mongoose Error: ", error);
+});
+
+// Once logged in to the db through mongoose, log a success message
+db.once("open", function() {
+    console.log("Mongoose connection successful.");
+});
+
 
 // HEROKU DEPLOYMENT: mongodb://heroku_r139bwdx:bj9kalikgpg164vcpmqnqenbsf@ds055495.mlab.com:55495/heroku_r139bwdx
 
