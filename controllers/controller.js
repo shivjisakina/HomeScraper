@@ -3,6 +3,13 @@ const express = require('express');
 const router = express.Router();
 const request = require('request');
 const cheerio = require('cheerio');
+const mongoose = require('mongoose')
+
+// Requiring models
+var Note = require("./../models/Note.js");
+var Homes = require("./../models/Note.js");
+
+mongoose.Promise = Promise;
 
 router.get('/', function (req, res) {
 
@@ -53,10 +60,34 @@ router.get('/scrape', function (req, res) {
 
     }); // request function
 
+    res.send("Scrape Complete");
+
 }); // router.get '/scrape'
 
+
+
 router.post('/scrape', function (req, res) {
+    
 
 }) // router.post '/scrape'
+
+router.get('/homes', function (req, res) {
+
+    Homes.find({})
+
+        .populate("note")
+
+        .exec(function(error, doc) {
+            // Log any errors
+            if (error) {
+                console.log(error);
+            }
+            // Or send the doc to the browser as a json object
+            else {
+                res.json(doc);
+            }
+        });
+
+}) // router.post '/homes'
 
 module.exports = router;
