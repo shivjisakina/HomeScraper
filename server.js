@@ -52,16 +52,6 @@ app.use('/', router);
 // cheerio npm package for backend jQuery
 const $ = cheerio.load('<h2 class="title">Hello world</h2>');
 
-// storing the url in a variable for easy readability
-var url = "https://www.newhomesource.com/communityresults/market-80";
-
-// request npm package
-request(url, function (error, response, body) {
-    console.log('error:', error); // Print the error if one occurred
-    console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-    //console.log('body:', body); // Print the HTML of the homepage.
-});
-
 
 // Listening to the port
 app.listen(PORT, function () {
