@@ -6,13 +6,21 @@ var Schema = mongoose.Schema;
 
 // Create article schema
 var HomesSchema = new Schema({
+
     // title is a required string
     title: {
         type: String,
         required: true
     },
-    // link is a required string
-    link: {
+    price: {
+        type: String,
+        required: true
+    },
+    address: {
+        type: String,
+        required: true
+    },
+    imageLink: {
         type: String,
         required: true
     },

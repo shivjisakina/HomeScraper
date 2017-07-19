@@ -9,6 +9,11 @@ const mongoose = require('mongoose')
 var Note = require("./../models/Note.js");
 var Homes = require("./../models/Note.js");
 
+// Connecting to my MongoDB Database
+mongoose.connect('mongodb://localhost/HomeScraper', { useMongoClient: true });
+mongoose.connect('mongodb://heroku_r139bwdx:bj9kalikgpg164vcpmqnqenbsf@ds055495.mlab.com:55495/heroku_r139bwdx', { useMongoClient: true });
+
+
 mongoose.Promise = Promise;
 
 router.get('/', function (req, res) {
@@ -34,27 +39,43 @@ router.get('/scrape', function (req, res) {
         // Storing the body in $ var for backend jQuery
         const $ = cheerio.load(body);
 
+        // For each loop through the nhs_CommResItem class
         $(".nhs_CommResItem").each(function(i, element) {
 
-            var title = $(element).find(".nhs_paidCommunityTitle").text().trim();
-            var price = $(element).find(".nhs_Price").text().trim();
-            var address = $(element).find(".nhs_Location").children("p").text().trim();
-            //var imageLink = $(element).find("div").children().children("img").text;
-            var imageLink = $(element).find(".mainImage").children("img").attr("src").trim();
-            //var topic = $(element).find(".TopicName.TopicNameSpan").text();
-            //var text = $(element).find(".qtext_para").text();
+            // Empty results object
+            var result = {};
 
+            // Calling out the information I need
+            result.title = $(element).find(".nhs_paidCommunityTitle").text().trim();
+            result.price = $(element).find(".nhs_Price").text().trim();
+            result.address = $(element).find(".nhs_Location").children("p").text().trim();
+            result.imageLink = $(element).find(".mainImage").children("img").attr("src").trim();
+
+
+            //Console logging it to make sure Im getting the right info out
             //console.log(element)
-            console.log("title", title);
+            console.log("title", result.title);
             console.log("------");
-            console.log("price", price);
+            console.log("price", result.price);
             console.log("------");
-            console.log("address", address);
+            console.log("address", result.address);
             console.log("------");
-            console.log("Image Link", imageLink);
+            console.log("Image Link", result.imageLink);
             console.log("------");
-            //console.log(topic);
-            //console.log(text);
+
+
+            var entry = new Homes(result);
+
+            entry.save(function(err, doc) {
+                // Log any errors
+                if (err) {
+                    console.log(err);
+                }
+                // Or log the doc
+                else {
+                    console.log(doc);
+                }
+            });
 
         }); // $.each
 
