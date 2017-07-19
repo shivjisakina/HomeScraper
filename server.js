@@ -4,13 +4,16 @@ const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const request = require('request');
 const cheerio = require('cheerio');
+
+// Making my port 3000 or process.env.PORT for heroku deployment
+var PORT = process.env.PORT || 3000;
+
 const mongoose = require('mongoose');
 
 // Connecting to my MongoDB Database
 mongoose.connect('mongodb://localhost/my_database');
 
-// Making my port 3000 or process.env.PORT for heroku deployment
-var PORT = process.env.PORT || 3000;
+// HEROKU DEPLOYMENT: mongodb://heroku_r139bwdx:bj9kalikgpg164vcpmqnqenbsf@ds055495.mlab.com:55495/heroku_r139bwdx
 
 // express npm package
 var app = express();
@@ -27,6 +30,11 @@ app.use(bodyParser.json({type: 'application/vnd.api+json'}));
 // Use all of the static files in the public folder
 app.use(express.static('app/public'));
 
+// requiring my  controller js file
+var router = require('./controllers/controller.js');
+app.use('/', router);
+
+
 // cheerio npm package for backend jQuery
 const $ = cheerio.load('<h2 class="title">Hello world</h2>');
 
@@ -36,6 +44,7 @@ request('http://www.google.com', function (error, response, body) {
     console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
     console.log('body:', body); // Print the HTML for the Google homepage.
 });
+
 
 // Listening to the port
 app.listen(PORT, function () {
