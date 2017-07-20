@@ -14,7 +14,7 @@ var Homes = require("./models/Homes.js");
 var PORT = process.env.PORT || 3000;
 
 // Connecting to my MongoDB Database
-mongoose.connect('mongodb://localhost/HomeScraper', { useMongoClient: true });
+mongoose.connect('mongodb://localhost:27017/HomeScraper', { useMongoClient: true });
 mongoose.connect('mongodb://heroku_r139bwdx:bj9kalikgpg164vcpmqnqenbsf@ds055495.mlab.com:55495/heroku_r139bwdx', { useMongoClient: true });
 
 // HEROKU DEPLOYMENT: mongodb://heroku_r139bwdx:bj9kalikgpg164vcpmqnqenbsf@ds055495.mlab.com:55495/heroku_r139bwdx

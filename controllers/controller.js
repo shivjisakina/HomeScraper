@@ -3,16 +3,30 @@ const express = require('express');
 const router = express.Router();
 const request = require('request');
 const cheerio = require('cheerio');
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 // Requiring models
 var Note = require("./../models/Note.js");
-var Homes = require("./../models/Note.js");
+var Homes = require("./../models/Homes.js");
+
+var db =
+    process.env.MONGODB_URI ||
+    process.env.MONGOHQ_URL ||
+    'mongodb://localhost/HomeScraper';
 
 // Connecting to my MongoDB Database
-mongoose.connect('mongodb://localhost/HomeScraper', { useMongoClient: true });
+mongoose.connect('mongodb://localhost:27017/HomeScraper', { useMongoClient: true });
 mongoose.connect('mongodb://heroku_r139bwdx:bj9kalikgpg164vcpmqnqenbsf@ds055495.mlab.com:55495/heroku_r139bwdx', { useMongoClient: true });
 
+mongoose.connect(db, function(err,res){
+
+    if(err){
+        console.log("Error connection to: " + db + '. ' + err);
+    } else {
+        console.log("Succeeded connecting to: " + db);
+    }
+
+});
 
 mongoose.Promise = Promise;
 
@@ -51,18 +65,16 @@ router.get('/scrape', function (req, res) {
             result.address = $(element).find(".nhs_Location").children("p").text().trim();
             result.imageLink = $(element).find(".mainImage").children("img").attr("src").trim();
 
-
             //Console logging it to make sure Im getting the right info out
             //console.log(element)
-            console.log("title", result.title);
+            /*console.log("title", title);
             console.log("------");
-            console.log("price", result.price);
+            console.log("price", price);
             console.log("------");
-            console.log("address", result.address);
+            console.log("address", address);
             console.log("------");
-            console.log("Image Link", result.imageLink);
-            console.log("------");
-
+            console.log("Image Link", imageLink);
+            console.log("------");*/
 
             var entry = new Homes(result);
 
@@ -81,7 +93,7 @@ router.get('/scrape', function (req, res) {
 
     }); // request function
 
-    res.send("Scrape Complete");
+    res.send("NewHomeSource has been scraped! :)");
 
 }); // router.get '/scrape'
 
@@ -90,7 +102,7 @@ router.get('/scrape', function (req, res) {
 router.post('/scrape', function (req, res) {
     
 
-}) // router.post '/scrape'
+}); // router.post '/scrape'
 
 router.get('/homes', function (req, res) {
 
@@ -109,6 +121,11 @@ router.get('/homes', function (req, res) {
             }
         });
 
-}) // router.post '/homes'
+}); // router.post '/homes'
+
+router.post('/homes', function (req, res) {
+
+
+}); // router.post '/homes'
 
 module.exports = router;
