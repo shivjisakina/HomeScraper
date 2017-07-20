@@ -16,6 +16,7 @@ var db =
 
 // Connecting to my MongoDB Database
 mongoose.connect('mongodb://localhost:27017/HomeScraper', { useMongoClient: true });
+
 mongoose.connect('mongodb://heroku_r139bwdx:bj9kalikgpg164vcpmqnqenbsf@ds055495.mlab.com:55495/heroku_r139bwdx', { useMongoClient: true });
 
 mongoose.connect(db, function(err,res){
