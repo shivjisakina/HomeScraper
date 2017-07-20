@@ -5,6 +5,12 @@ const bodyParser = require('body-parser');
 const request = require('request');
 const cheerio = require('cheerio');
 const mongoose = require('mongoose');
+const Nightmare = require('nightmare');
+const nightmare = Nightmare({ show: true })
+
+// Requiring nightmaretest
+var nightmareTest = require("./nightmare.js");
+nightmareTest();
 
 // Requiring models
 var Note = require("./models/Note.js");
