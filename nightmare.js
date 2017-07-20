@@ -7,10 +7,9 @@ module.exports = function () {
         .goto('http://localhost:3000/scrape')
         .wait()
         .goto('http://localhost:3000/homes')
+        .wait()
+        .goto('http://localhost:3000/homes/5970112d2b65ee1c4c478a38 ')
         .wait('#main')
-        .evaluate(function () {
-            return document.querySelector('#main .searchCenterMiddle li a').href
-        })
         .end()
         .then(function (result) {
             console.log(result)
