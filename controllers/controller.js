@@ -42,13 +42,12 @@ router.get('/scrape', function (req, res) {
     // storing the url in a variable for easy readability
     var url = "https://www.newhomesource.com/communityresults/market-80";
 
-// request npm package
+    // request npm package
     request(url, function (error, response, body) {
 
         //console.log('error:', error); // Print the error if one occurred
         //console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
         //console.log('body:', body); // Print the HTML of the homepage.
-
 
         // Storing the body in $ var for backend jQuery
         const $ = cheerio.load(body);
@@ -87,7 +86,7 @@ router.get('/scrape', function (req, res) {
                 else {
                     console.log(doc);
                 }
-            });
+            }); // entry.save
 
         }); // $.each
 
@@ -119,11 +118,38 @@ router.get('/homes', function (req, res) {
             else {
                 res.json(doc);
             }
-        });
+        }); // .exec(function..
+
 
 }); // router.post '/homes'
 
 router.post('/homes', function (req, res) {
+
+
+}); // router.post '/homes'
+
+router.get('/homes/:id', function (req, res) {
+
+    Homes.findOne({ "_id": req.params.id })
+
+        .populate("note")
+
+        .exec(function(error, doc) {
+
+            // Log any errors
+            if (error) {
+                console.log(error);
+            }
+            // Or send the doc to the browser as a json object
+            else {
+                res.json(doc);
+            }
+        }); // .exec(function..
+
+
+}); // router.post '/homes'
+
+router.post('/homes/:id', function (req, res) {
 
 
 }); // router.post '/homes'
