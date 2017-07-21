@@ -1,6 +1,20 @@
+<script src="app.js"></script>
+
 <h1>Welcome to the HomeScraper</h1>
 
-<div id="wrapper" method="GET" action="/">
-    <div id="homes">Homes:</div>
+{{#each data}}
+
+    <p data-id={{this.id}} title={{this.title}}>{{this.title}}</p>
+
+    <p data-id={{this.id}}>{{this.price}}</p>
+
+    <p data-id={{this.id}}>{{this.address}}</p>
+
+
+
+<div id="wrapper">
+    <div id="homes"></div>
     <div id="notes"></div>
 </div>
+
+{{/each}}
