@@ -137,8 +137,8 @@ router.post('/homes/:id', function (req, res) {
                     }
                     else {
                         // Or send the document to the browser
-                        //res.send(doc);
-                        res.render('index', {name: doc});
+                        res.send(doc);
+                        //res.render('index', {name: doc});
                     }
                 });
 
