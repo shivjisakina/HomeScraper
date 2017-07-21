@@ -16,7 +16,7 @@ $(document).on("click", "p", function() {
 
     $("#notes").append("<h2>" + this.title + "</h2>");
 
-    $("#notes").append("<input id='titleInput' name='titleInput'>");
+    $("#notes").append("<input id='titleInput' name='titleInput' value='Title'>");
 
     $("#notes").append("<textarea id='bodyInput' name='bodyInput'></textarea>");
 

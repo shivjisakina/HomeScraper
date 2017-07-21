@@ -1,20 +1,32 @@
 <script src="app.js"></script>
+<link rel="stylesheet" type="text/css" href="style.css"/>
 
-<h1>Welcome to the HomeScraper</h1>
+
+<h1>Welcome to HomeScraper</h1>
 
 {{#each data}}
 
-    <p data-id={{this.id}} title={{this.title}}>{{this.title}}</p>
+    <div id="wrapper">
 
-    <p data-id={{this.id}}>{{this.price}}</p>
+    <p data-id={{this.id}} title={{this.title}} class="title">Community: {{this.title}}</p>
 
-    <p data-id={{this.id}}>{{this.address}}</p>
+    <p data-id={{this.id}} title={{this.title}}>Price: {{this.price}}</p>
 
+    <p data-id={{this.id}} title={{this.title}}>Location: {{this.address}}</p>
 
-
-<div id="wrapper">
     <div id="homes"></div>
     <div id="notes"></div>
 </div>
+
+{{/each}}
+
+
+{{#each note}}
+
+    <p data-id={{this.id}}>{{this.title}}</p>
+
+    <p data-id={{this.id}}>{{this.body}}</p>
+
+
 
 {{/each}}
